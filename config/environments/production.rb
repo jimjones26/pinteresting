@@ -67,7 +67,7 @@ Pinteresting::Application.configure do
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found).
-  config.i18n.fallbacks = true
+config.i18n.fallbacks = true
 
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
@@ -80,4 +80,14 @@ Pinteresting::Application.configure do
 
   # required for heroku
   config.action_mailer.default_url_options = { :host => 'http://mighty-refuge-4355.herokuapp.com/' }
-end
+
+  # sets paperclip to upload images to amazon s3
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_credentials => {
+      :bucket => ENV['AWS_BUCKET'],
+      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+    }
+
+  end
